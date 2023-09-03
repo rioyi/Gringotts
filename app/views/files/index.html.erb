@@ -1,0 +1,28 @@
+<h1>Lista de archivos en AWS S3</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre del archivo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @files.each do |file| %>
+      <tr>
+        <td><%= file.key %></td>
+        <td>
+        <td>
+          <%= link_to 'Eliminar', delete_files_path(file_name: file.key), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Subir un nuevo archivo</h2>
+
+<%= form_with url: upload_files_path, method: :post, local: true, html: { multipart: true } do |f| %>
+  <%= f.file_field :file %>
+  <%= f.submit "Subir archivo" %>
+<% end %>
